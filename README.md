@@ -23,18 +23,24 @@
 
 
 2. Установите необходимые зависимости:
+    ```bash
     pip install -r requirements.txt
 
 3. Настройте базу данных. В файле settings.py укажите параметры вашей базы данных.
 
 4. Создайте миграции и примените их:
+    ```bash
     python manage.py makemigrations
+
+    ```bash
     python manage.py migrate
 
 5. Запустите сервер Django
-python manage.py runserver
+    ```bash
+    python manage.py runserver
 
-6. Запустите бота 
+6. Запустите бота
+    ```bash
     python bot.py
 
 ### Данный бот пока-что еще сырой, требует доработки, я обязательно найду для него времени...
