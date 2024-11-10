@@ -31,9 +31,6 @@
 4. Создайте миграции:
     ```bash
     python manage.py makemigrations
-
-Не забудьте применить миграции
-    ```bash
     python manage.py migrate
 
 5. Запустите сервер Django
