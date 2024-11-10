@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <div class="container">
+        <div class="wrapper">
+            <h1>Удалить товар</h1>
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% if message != ''%}
+            <div class="alert alert-success" role="alert">{{ message }}</div>
+            {%endif%}
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <label for="product">Выберите товар для удаления:</label>
+                <select id="product" name="product_id" required>
+                    <option value="">-- Выберите товар --</option>
+                    {% for product in products %}
+                        <option value="{{ product.id }}">{{ product.title }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Удалить товар">
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+    }
+    label {
+        display: block;
+        margin: 10px 0 5px;
+    }
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    input[type="submit"] {
+        background-color: #f44336; /* Красный цвет для удаления */
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #d32f2f;
+    }
+    .messages {
+        margin-bottom: 20px;
+    }
+    .alert{
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            margin: 0 auto;
+            margin: 10px 0;
+            /* cursor: pointer; */
+            font-family: 'Rubik';
+        }
+</style>
+{% endblock %}
