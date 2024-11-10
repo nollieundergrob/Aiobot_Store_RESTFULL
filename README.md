@@ -12,7 +12,7 @@
 - Django
 - Django REST Framework
 - AIOGRAM
-- Библиотека для работы с базой данных (например, SQLite, PostgreSQL и т.д.)
+- Библиотека для работы с базой данных SQlite3
 
 ### Шаги установки
 
