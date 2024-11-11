@@ -24,14 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-&wp@fzjt3nzcx-qn77go4$4-cn71$1jggv38wv$du%x3$ui#^u'
 
+import socket
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['217.196.101.222',socket.gethostbyname(socket.gethostname())]
 
 
 # Application definition
-
+ 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

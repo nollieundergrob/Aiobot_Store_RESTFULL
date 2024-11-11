@@ -1,8 +1,8 @@
 import asyncio
 import logging
 import sys
-from settings.config import *
-from settings.text import *
+# from settings.config import *
+# from settings.text import *
 from aiogram import Bot, Router, html, types, Dispatcher
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.client.default import DefaultBotProperties
@@ -10,12 +10,13 @@ from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 from aiogram.types import FSInputFile,InputMedia,InputMediaPhoto
-import keyboad_bot
-from database import Database
+from bot import keyboad_bot
+from bot.database import Database
 import datetime
 
 
 import os
+TOKEN='5941816417:AAH-XBJ6ppThjKF-U5NIels_6TVfMykqbzI'
 print(os.getcwd())
 router = Router()
 dp = Dispatcher()
@@ -99,7 +100,10 @@ async def main() -> None:
     # And the run events dispatching
     await dp.start_polling(bot)
 
-
-if __name__ == "__main__":
+def start_bot():
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
+
+# if __name__ == "__main__":
+#     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+#     asyncio.run(main())

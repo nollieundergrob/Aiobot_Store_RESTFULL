@@ -4,7 +4,7 @@ import json
 import datetime
 import urllib3
 import random
-
+import socket
 
 class TelegramUser:
     def __init__(self,username,id,date,firstname):
@@ -15,7 +15,7 @@ class TelegramUser:
         
     
 
-    def __call__(self,url='http://localhost:8000'):
+    def __call__(self,url=socket.gethostbyname(socket.gethostname())):
         if self.username == None:
             self.username = 'NoneObject'
         payload = {
@@ -32,7 +32,7 @@ class TelegramUser:
 
 class Database:
     
-    def __init__(self, db_path='http://localhost:8000'):
+    def __init__(self, db_path=socket.gethostbyname(socket.gethostname())):
         self.base_link = db_path
         self.product_link = self.base_link+'/product/data/'
         self.telegram_link = self.base_link+'/telegram/data/'
