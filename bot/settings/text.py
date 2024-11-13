@@ -18,6 +18,7 @@ async def combine_post(GET_POST):
             print(f"Статус-код: {response.status}")
             try:
                 result = await response.json()  # Асинхронно получаем JSON-данные
+                
                 # print(result)
                 return result  # Возвращаем результат, если это необходимо
             except aiohttp.ContentTypeError:
