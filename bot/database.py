@@ -33,8 +33,8 @@ class TelegramUser:
 
 class Database:
     # socket.gethostbyname(socket.gethostname())
-    def __init__(self, db_path='http://localhost:8000'):
-        self.base_link = db_path
+    def __init__(self, db_path='localhost:8000'):
+        self.base_link = "http://"+db_path
         self.product_link = self.base_link+'/product/data/'
         self.telegram_link = self.base_link+'/telegram/data/'
         self.active_list = []
@@ -152,16 +152,16 @@ class Database:
             return product
        
     
-    def id_list(self):
-        return [i['telegramid'] for i in json.loads(self.http.request('GET', self.telegram_link,headers=self.headers).data.decode('utf-8'))]
+    def telegramid_to_list(self):
+        return [i['telegramid'] for i in  json.loads(self.http.request('GET', self.telegram_link,headers=self.headers).data.decode('utf-8'))]
 
 
 
 
 
 db = Database() 
-data = db.id_list()
-print(db.queue)
+data = db.advert()
+# print(db.queue)
 print(data)
 
 

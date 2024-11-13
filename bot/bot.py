@@ -2,7 +2,7 @@ import asyncio
 import logging
 import sys
 # from settings.config import *
-# from settings.text import *
+from bot.settings.text import *
 from aiogram import Bot, Router, html, types, Dispatcher
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.client.default import DefaultBotProperties
