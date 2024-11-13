@@ -5,6 +5,7 @@ import datetime
 import urllib3
 import random
 import socket
+import hashlib
 
 class TelegramUser:
     def __init__(self,username,id,date,firstname):
@@ -31,8 +32,8 @@ class TelegramUser:
 
 
 class Database:
-    
-    def __init__(self, db_path=socket.gethostbyname(socket.gethostname())):
+    # socket.gethostbyname(socket.gethostname())
+    def __init__(self, db_path='http://localhost:8000'):
         self.base_link = db_path
         self.product_link = self.base_link+'/product/data/'
         self.telegram_link = self.base_link+'/telegram/data/'
@@ -151,21 +152,17 @@ class Database:
             return product
        
     
-    async def check_update(self,id):
-        if not self.last_version:
-            all = json.loads(self.http.request('GET', self.product_link, headers=self.headers).data.decode('utf-8'))
-            product_list = [i['id'] for i in all]
-            for i in self.queue[id]:
-                if i not in product_list:
-                    pass    
+    def id_list(self):
+        return [i['telegramid'] for i in json.loads(self.http.request('GET', self.telegram_link,headers=self.headers).data.decode('utf-8'))]
 
 
 
 
-# db = Database() 
-# data = db.next_button(1041676367)
-# print(db.queue)
-# print(data)
+
+db = Database() 
+data = db.id_list()
+print(db.queue)
+print(data)
 
 
 
