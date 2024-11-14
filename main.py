@@ -14,7 +14,7 @@ def start_api():
     os.system(f'daphne -p {port} -b {ip} -v {verbosity} -s NOLLIEUNDERGROB conifg.asgi:application')
 
 def start_bot():
-    bot.start_bot()
+    bot.start_bot(ip,port)
 
 
 th1 = threading.Thread(target=start_api)

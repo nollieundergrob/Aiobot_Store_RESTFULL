@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="section_previewer">
+    <div class="form-container">
+        <h2>Форма</h2>
+        <form id="messageForm">
+            <input type="file" id="image" accept="image/*" multiple />
+            <textarea name="textMessage" placeholder="Введите текст сообщения" id="textMessage"></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+    <div class="telegram_perview_box">
+        <div class="messanger_box" id="msgbox">
+           
+            <div class="content_message">
+            <div class="image-container" id="imageContainer"></div>
+            <div class="preview_message" id="previewMessage">
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+    <script>
+        // Получаем необходимые элементы
+const textMessageInput = document.getElementById('textMessage');
+const previewMessage = document.getElementById('previewMessage');
+const imageContainer = document.getElementById('imageContainer');
+const msgbox = document.getElementById('previewMessage');
+
+// Обработчик события input для обновления текста в режиме реального времени
+textMessageInput.addEventListener('input', function() {
+    const textMessage = textMessageInput.value;
+    previewMessage.innerHTML = textMessage // Обновляем содержимое previewMessage
+});
+
+// Обработчик события change для загрузки изображений
+document.getElementById('image').addEventListener('change', function(event) {
+    const files = event.target.files;
+    imageContainer.innerHTML = ''; // Очищаем текущее содержимое изображений
+
+    if (files.length > 0 && files.length < 11) {
+        msgbox.style.borderRadius = '0px 0px 0px 5px';
+        msgbox.style.padding = '5px 15px 20px 15px';
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                imageContainer.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        }
+    } else if (files.length >= 11) {
+        alert('Нельзя вставить более 10 фотографий');
+    }
+});
+
+// Обработчик события submit для формы (можно оставить для других целей)
+document.getElementById('messageForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Предотвращаем отправку формы
+});
+    </script>
+</body>
+</html>
