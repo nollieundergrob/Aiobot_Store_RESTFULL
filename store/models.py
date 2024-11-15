@@ -2,13 +2,11 @@
 from django.db import models
 import datetime
 
-
 class LoginForm(models.Model):
     username = models.CharField(max_length=100)
     telegramid = models.IntegerField('telegram_id')
     date_registration = models.CharField(default=str(datetime.datetime.now().strftime("%d.%m.%Y %H:%M")),max_length=100)
     firstname = models.CharField(blank=True,max_length=200)
-    
     def __str__(self):
         return self.username
 
