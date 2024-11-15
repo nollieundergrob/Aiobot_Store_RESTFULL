@@ -130,6 +130,7 @@
     padding: 10px;
     border: none;
     background-color: #e2e2e2;
+    font-family: 'Rubik';
     border-radius: 5px;
     
 }
@@ -137,7 +138,13 @@
     padding: 5px;
 }
 .form-container textarea{
+    resize: none;
+    height: 300px;
     
+}
+.form-container textarea,input:focus{
+    outline: none;
+
 }
 button {
     
@@ -157,6 +164,8 @@ button:hover {
     /* background-color: #202020; */
     display: flex;
     align-items: center;
+    flex-wrap: wrap-reverse;
+    gap: 10px;
     justify-content: center;
 }
 .form-container{
@@ -168,6 +177,13 @@ button:hover {
     justify-content: space-between;
     flex-direction: column;
     border-radius: 30px;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     box-shadow: 3px 4px 31px 13px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width:410px) {
+    .messanger_box{
+        width: 290px;
+    }
+    
 }

@@ -4,6 +4,7 @@ from django.contrib.auth.views import LoginView
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.views import View
 from store.forms import CustomAuthenticationForm
 from rest_framework import generics, viewsets
 from .models import LoginForm
@@ -127,7 +128,6 @@ def add_product(request):
     return render(request, 'add_product.html')  # Возврат формы, если метод не POST
 
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import ProductModel
 from django.contrib import messages
 
 def delete_product(request):
@@ -149,3 +149,10 @@ def delete_product(request):
             'products': ProductModel.objects.all()
         }
         return render(request, 'delete_product.html', context=data)  # Перенаправление на ту же страницу после удаления
+from bot import bot
+class Create_advert(View):
+    def get(self,request):
+        return render(request,'telegram_preview.html')
+    def post(self,request):
+        text = request.forms['textMessage']
+        bot.send_advert()

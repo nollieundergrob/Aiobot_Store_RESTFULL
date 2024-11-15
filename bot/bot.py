@@ -87,13 +87,13 @@ async def main() -> None:
     dp.include_router(router)
     await dp.start_polling(bot)
 
-async def send_advert(token,message):
+async def send_advert(message):
     peoples = await db.telegramid_to_list()
     for user in peoples:
         try:
             await bot.send_message(user, message, parse_mode='HTML')
         except:
-            logging.info(f'USER BY ID {user} LEAVE')
+            logging.info(f'{user} block the bot')
 
 def start_bot(ip, port):
     global db
