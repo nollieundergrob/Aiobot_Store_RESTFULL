@@ -17,7 +17,8 @@ urlpatterns = [
     path('product/data/',ProductInfoAPIView.as_view()),
     path('telegram/tags/', FavoriteTagsCreateView.as_view()),
     path('product/add_product',view=add_product),
-    path('product/delete_product',view=delete_product)  
+    path('product/delete_product',view=delete_product),
+    path('test/', view=Create_advert.as_view(), name='create_advert'),
 ]
     
     

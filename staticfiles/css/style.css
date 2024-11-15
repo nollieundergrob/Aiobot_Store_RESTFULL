@@ -51,3 +51,139 @@
     padding: 10px 20px;
     border-radius: 10px;
 }
+.messanger_box{
+    box-shadow: 3px 4px 31px 13px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    height: 600px;
+    margin: 0 auto;
+    background:
+    linear-gradient(
+      120deg,
+      #6fa787 0%,
+      #d5dab6 40%,
+      #6fa787 100%
+    );
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    max-height: 1000px;
+    padding: 30px 15px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+}
+.telegram_perview_box{
+    margin: 0 auto;
+    /* max-width: 70%; */
+    margin-top: 30px;
+}
+.image-container{
+    background-color: #fff;
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+    /* padding-top: 1px; */
+}
+.preview_message{
+    
+    /* white-space: pre-wrap; */
+    font-family: 'Rubik';
+    border-radius: 10px 10px 0 10px;
+    font-size: 12px;
+    width: 100%;
+    color: #000;
+    padding: 20px 15px;
+    text-wrap: wrap;
+    
+    background-color: #ffffff;
+}
+#previewMessage{
+    max-width: 100%;
+    overflow-wrap: break-word; /* Перенос слов */
+
+    word-wrap: break-word; /* Для старых браузеров */
+
+    overflow: hidden; /* Скрыть переполнение */
+
+    white-space: normal
+}
+.content_message{
+    max-width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+}
+
+
+.image-container {
+    display: flex; /* Используем flex для отображения изображений в строку */
+    flex-wrap: wrap; /* Позволяет изображениям переноситься на следующую строку при необходимости */
+     /* Отступ между изображениями и текстом */
+}
+.image-container img {
+    max-width: 100px; /* Ограничиваем ширину изображения */ /* Отступ между изображениями */ /* Закругляем углы изображений */
+}
+.form-container input, textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: none;
+    background-color: #e2e2e2;
+    font-family: 'Rubik';
+    border-radius: 5px;
+    
+}
+.form-container input[type="file"] {
+    padding: 5px;
+}
+.form-container textarea{
+    resize: none;
+    height: 300px;
+    
+}
+.form-container textarea,input:focus{
+    outline: none;
+
+}
+button {
+    
+    display: block;
+    box-shadow: 3px 4px 35px 4px rgba(34, 60, 80, 0.2);
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #0056b3;
+}
+.section_previewer{
+    /* background-color: #202020; */
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    gap: 10px;
+    justify-content: center;
+}
+.form-container{
+    font-family: 'Rubik';
+    background-color: #fff;
+    padding: 30px;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-direction: column;
+    border-radius: 30px;
+    /* margin-left: 20px; */
+    box-shadow: 3px 4px 31px 13px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width:410px) {
+    .messanger_box{
+        width: 290px;
+    }
+    
+}

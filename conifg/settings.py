@@ -119,10 +119,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Директория для собранных статических файлов
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Directory where collectstatic will gather files
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Дополнительная директория для статических файлов
+    BASE_DIR / 'static',  # Main static directory
+    BASE_DIR / 'store/static',  # If you want to include store app's static files
 ]
 
 # Default primary key field type

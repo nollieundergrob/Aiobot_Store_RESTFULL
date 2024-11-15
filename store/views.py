@@ -150,9 +150,17 @@ def delete_product(request):
         }
         return render(request, 'delete_product.html', context=data)  # Перенаправление на ту же страницу после удаления
 from bot import bot
+
+
 class Create_advert(View):
-    def get(self,request):
-        return render(request,'telegram_preview.html')
-    def post(self,request):
-        text = request.forms['textMessage']
-        bot.send_advert()
+    def get(self,request,*args, **kwargs,):
+        return render(request=request,template_name='telegram_preview.html')
+
+# def telegram_preview_alert(request):
+#     if request.method == 'GET':
+#         return render(request=request,template_name='telegram_preview.html')
+    
+    # def post(self,request):
+    #     pass
+        # text = request.forms['textMessage']
+        # bot.send_advert()
