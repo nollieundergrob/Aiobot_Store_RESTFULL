@@ -11,6 +11,7 @@ services:
     - ./static:/app/static  # Монтируем директорию для статических файлов
     - ./staticfiles:/app/staticfiles  # Монтируем статические файлы, если необходимо
     - ./store:/app/store
+    - ./media:/app/media
   bot:
     build:
       context: .
