@@ -12,7 +12,7 @@ services:
       - .:/app
       - ./db.sqlite3:/app/db.sqlite3  # Монтируем SQLite файл
     environment:
-      - DJANGO_SETTINGS_MODULE=config.settings
+      - DJANGO_SETTINGS_MODULE=conifg.settings
 
   bot:
     build:
