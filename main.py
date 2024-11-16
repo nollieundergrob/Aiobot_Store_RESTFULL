@@ -19,8 +19,8 @@ def start_bot():
 
 
 th1 = threading.Thread(target=start_api)
-th2 = threading.Thread(target=start_bot)
 th1.start()
+th2 = threading.Thread(target=start_bot)
 th2.start()
 th1.join()
 th2.join()
