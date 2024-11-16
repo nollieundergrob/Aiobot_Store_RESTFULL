@@ -6,7 +6,9 @@ import socket
 
 # ip = '0.0.0.0'
 # ip = 'localhost'
-ip = socket.gethostbyname(socket.gethostname())
+# ip = socket.gethostbyname(socket.gethostname())
+ip = '217.196.101.222'
+#172.18.0.3:25565
 port = 25565
 verbosity = 3
 bot_path = '.\\bot\\bot.py'
