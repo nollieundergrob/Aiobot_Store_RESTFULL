@@ -6,6 +6,11 @@ services:
     container_name: django_container
     ports:
       - "25565:25565"
+    volumes:
+    - ./db.sqlite3:/app/db.sqlite3  # Монтируем базу данных SQLite
+    - ./static:/app/static  # Монтируем директорию для статических файлов
+    - ./staticfiles:/app/staticfiles  # Монтируем статические файлы, если необходимо
+    - ./store:/app/store
   bot:
     build:
       context: .
