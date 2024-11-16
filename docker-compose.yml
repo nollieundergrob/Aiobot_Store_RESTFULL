@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    container_name: django_container
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings
+    depends_on:
+      - db
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: bot_container
+    ports:
+      - "25565:25565"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - db
+
+  db:
+    image: "sqlite:latest"
+    container_name: db_container
+    volumes:
+      - ./db.sqlite3:/app/db.sqlite3
+    environment:
+      - DB_PATH=/app/db.sqlite3
+    expose:
+      - "25565"

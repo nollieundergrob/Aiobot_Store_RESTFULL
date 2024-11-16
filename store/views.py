@@ -91,7 +91,7 @@ def index(request):
 
 
 class CustomLoginView(LoginView):
-    template_name = 'forms/login.html'
+    template_name = 'login.html'
     authentication_form = CustomAuthenticationForm  
 
 
