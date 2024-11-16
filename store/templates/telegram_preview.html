@@ -3,8 +3,11 @@
     <div class="section_previewer">
     <div class="form-container">
         <h2>Создание рассылки</h2>
-        <form id="messageForm" method="post">
-            <input type="file" id="image" accept="image/*" multiple />
+        <p>{{msg}}</p>
+        
+        <form id="messageForm" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="list_image" id="image" multiple >
             <textarea name="textMessage" placeholder="Введите текст сообщения" id="textMessage"></textarea>
             <button type="submit">Отправить</button>
         </form>
@@ -57,9 +60,5 @@ document.getElementById('image').addEventListener('change', function(event) {
     }
 });
 
-// Обработчик события submit для формы (можно оставить для других целей)
-document.getElementById('messageForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Предотвращаем отправку формы
-});
     </script>
 {%endblock%}

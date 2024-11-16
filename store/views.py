@@ -1,20 +1,36 @@
 
+import os
+import time
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.contrib import messages
+import socket
 from django.views import View
 from store.forms import CustomAuthenticationForm
 from rest_framework import generics, viewsets
 from .models import LoginForm
 from rest_framework.response import Response
 from .serializers import LoginSerializer,ProductSerializer,FavoriteTagsSerializer
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from .models import *
 from requests import post,get
 from rest_framework.views import APIView
+from django.views.decorators.csrf import csrf_exempt
 import json
+from aiogram.utils.media_group import MediaGroupBuilder
 import datetime
+import asyncio
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render
+from PIL import Image
+from django.contrib.auth.decorators import login_required
+import requests
+from io import BytesIO
+import logging
 
 
 
@@ -66,12 +82,11 @@ class LoginFormViewSet(viewsets.ModelViewSet):
     queryset = LoginForm.objects.all()
     serializer_class = LoginSerializer
 
-
+@login_required
 # result = post(url='http://localhost:8000' + "", headers={"Content-Type": "application/json"}, json=json.dumps({"username": username,"telegramid": tgid,"first_name": first_name,})
 def index(request):
-    username,tgid, first_name = 'nollieundergrob' ,1041676367, 'Bulat'
-    data = LoginForm.objects.all()
-    return HttpResponse(data)
+    data = {}
+    return render(request,'menu.html',context=data)
 
 
 
@@ -149,18 +164,80 @@ def delete_product(request):
             'products': ProductModel.objects.all()
         }
         return render(request, 'delete_product.html', context=data)  # Перенаправление на ту же страницу после удаления
-from bot import bot
+    
 
+from django.views import View
+from django.shortcuts import render
+from bot import database
+from bot.bot import get_bot_object  # Импортируйте ваш бот
+from aiogram import types  # Импортируйте необходимые классы из aiogram
+import asyncio
+import logging
+from django.http import JsonResponse
+from django.shortcuts import render
 
 class Create_advert(View):
-    def get(self,request,*args, **kwargs,):
-        return render(request=request,template_name='telegram_preview.html')
+    def get(self, request, *args, **kwargs):
+        return render(request=request, template_name='telegram_preview.html',context={'msg':''})
 
-# def telegram_preview_alert(request):
-#     if request.method == 'GET':
-#         return render(request=request,template_name='telegram_preview.html')
-    
-    # def post(self,request):
-    #     pass
-        # text = request.forms['textMessage']
-        # bot.send_advert()
+
+    async def send_message_to_all(self, message, images, bot):
+        db = database.Database(socket.gethostbyname(socket.gethostname())+":25565")
+        peoples = await db.telegramid_to_list()  # Получаем список всех пользователей
+        print(message, images)  # Исправлено: 'image' на 'images'
+        for user in peoples:
+            print(user)
+            try:
+                if images != []:
+                    media_group =MediaGroupBuilder(caption=message) # Список для медиа группы
+                    for image in images:
+
+                        print('check',image)
+                        # media_group.add_photo(types.InputMediaPhoto(media=types.FSInputFile(image)))
+                        media_group.add_photo(types.FSInputFile(image))
+                          # Добавляем в медиа группу
+                            
+                        # else:
+                        #     logging.warning(f'Некорректный тип файла: {type(image)}')
+                    # Проверяем, не пустой ли media_group
+                    if media_group:
+                        await bot.send_media_group(chat_id=user, media=media_group.build())
+                    else:
+                        logging.warning(f'media_group пуст для пользователя {user}')
+                else:
+                    await bot.send_message(chat_id=user, text=message)
+                    print(f'Нет фотографий')
+                # if message:
+                #     await bot.send_message(user, message, parse_mode='HTML')
+            except Exception as e:
+                print(f'Ошибка при отправке сообщения пользователю {user}: {e}')
+                logging.error(f'Ошибка при отправке сообщения пользователю {user}: {e}')
+
+
+
+
+    @csrf_exempt
+    def post(self, request):
+        text_message = request.POST.get('textMessage')  # Получаем текст сообщения
+        images = request.FILES.getlist('list_image')  # Получаем список загруженных изображений
+        valid_images = []
+        bot = get_bot_object()
+        for image in images:
+            temp_file_path = f'./static/temp/{image.name}'
+            print(temp_file_path)  # Путь к временным файлам
+            with open(temp_file_path, 'wb') as img:
+                    img.write(image.read())
+            # time.sleep(5)
+            valid_images.append(f'{temp_file_path}')
+        if text_message or valid_images:  # Проверяем, есть ли текст или изображения
+            asyncio.run(self.send_message_to_all(text_message, valid_images,bot))  # Отправляем сообщения всем пользователям
+            time.sleep(1)
+            for image in valid_images:
+                os.remove(image)
+            return render(request, 'telegram_preview.html', {'msg': 'Сообщение отправлено!'})
+        else:
+            time.sleep(1)
+            for image in valid_images:
+                os.remove(image)
+            return render(request, 'telegram_preview.html', {'msg': 'Сообщение не может быть пустым.'})
+        

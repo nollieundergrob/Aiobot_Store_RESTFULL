@@ -12,7 +12,7 @@ from bot import keyboad_bot
 from bot.database import Database
 from bot.settings.text import get_register_text
 # 7867149117:AAFD3RAoLXmcvhcOrn4gdwjFX6ehmYPASqY
-TOKEN = '5941816417:AAH-XBJ6ppThjKF-U5NIels_6TVfMykqbzI'
+TOKEN = '7867149117:AAFD3RAoLXmcvhcOrn4gdwjFX6ehmYPASqY'
 router = Router()
 dp = Dispatcher()
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))  # Adjusted here
@@ -20,12 +20,17 @@ bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML)) 
 # Initialize the Database instance
 db = None
 
+def get_bot_object():
+    global TOKEN
+    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    return bot
+
 @router.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
     if await db.check_user(message=message):
         await message.answer(get_register_text(message), reply_markup=keyboad_bot.start_kb(message))
         return None
-    await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!", reply_markup=keyboad_bot.start_kb(message))
+    await message.answer(f"Привет, {html.bold(message.from_user.full_name)}! 👋\nДобро пожаловать в наш телеграм-канал секонд-хэнд! Здесь вы найдете уникальные архивные и отборные вещи, которые помогут вам выделиться из толпы. 🌟 Не упустите возможность найти что-то особенное для себя!", reply_markup=keyboad_bot.start_kb(message))
 
 @router.message()
 async def echo_handler(message: Message) -> None:
@@ -33,22 +38,37 @@ async def echo_handler(message: Message) -> None:
     if is_registered:
         await message.reply(get_register_text(message))
         return None
-
+    
     # Fetch product data
-    data = await db.get_length_product()  # Adjusted to call the database method
-    for item_data in data:
-        id = item_data['id']  
-        title = item_data['title']
-        description = item_data['description'].replace('<br>', '\n')
-        price = item_data['price']
-        tags = ', '.join(tag['tag'] for tag in item_data['tags'])
-        message_text = f"*{title}*\n\n{description}\n\nЦена: {price}₽\n\nТеги: {tags}\n{id}"
-        
-        photo = item_data["photos"][0]
-        photo_path = '.' + photo['image']
-        input_file = FSInputFile(photo_path)
-        keyboad = keyboad_bot.main_kb(message)
-        await bot.send_photo(message.chat.id, photo=input_file, caption=message_text, parse_mode='Markdown', reply_markup=keyboad)
+    if message.text == 'Товары':
+        product = await db.next_button(message.from_user.id)
+        if product:
+            product = product[0]
+            id = product['id']
+            title = product['title']
+            description = product['description'].replace('<br>', '\n')
+            price = product['price']
+            tags = ', '.join(tag['tag'] for tag in product['tags'])
+            message_text = f"*{title}*\n\n{description}\n\nЦена: {price}₽\n\nТеги: {tags}\n{id}"
+            photo = product["photos"][0]
+            photo_path = '.' + photo['image']
+            input_file = FSInputFile(photo_path)
+            keyboad = keyboad_bot.main_kb(message)
+            await bot.send_photo(message.from_user.id, photo=input_file, caption=message_text, parse_mode='Markdown', reply_markup=keyboad)
+    elif message.text == '📞 Контакт':
+        text=f'''
+        Если у вас возникли вопросы или проблемы, пожалуйста, обращайтесь к соответствующим специалистам:
+                         
+        Технические вопросы @nollieundergrob отвечает на все технические вопросы, связанные с нашим сервисом. Если у вас возникла проблема с функционированием нашего сервиса или вам нужна помощь в настройке, пожалуйста, обращайтесь к @nollieundergrob.
+
+        Вопросы и предложения @swaq11 готов ответить на все ваши вопросы и рассмотреть ваши предложения. Если у вас есть идеи по улучшению нашего сервиса или вам нужно обсудить какой-либо вопрос, пожалуйста, обращайтесь к @swaq11.
+
+        Оформление заказов @loytue568 помогает с оформлением заказов и отвечает на вопросы, связанные с процессом заказа. Если у вас возникли вопросы о статусе вашего заказа или вам нужно помочь с оформлением, пожалуйста, обращайтесь к @loytue568.
+
+        Надеемся, что это поможет вам быстро найти ответы на ваши вопросы и решить любые проблемы, которые у вас возникнут.'''
+        await message.answer(text=text, reply_markup=keyboad_bot.start_kb(message))
+
+
 
 @router.callback_query()
 async def handle_button_click(callback_query: types.CallbackQuery):

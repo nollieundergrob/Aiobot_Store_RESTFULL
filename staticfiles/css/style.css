@@ -180,10 +180,23 @@ button:hover {
     /* margin-left: 20px; */
     box-shadow: 3px 4px 31px 13px rgba(0, 0, 0, 0.2);
 }
+.image-container img{
+    width: 86px;
+}
 
+.section_previewer{
+    padding: 0 20px;
+}
 @media (max-width:410px) {
     .messanger_box{
         width: 290px;
     }
+    .section_previewer{
+        padding: 0 0;
+    }
+    .image-container img{
+        width: 60px;
+    }
+    
     
 }

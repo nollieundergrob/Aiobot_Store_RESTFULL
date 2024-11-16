@@ -105,7 +105,7 @@
 
     overflow: hidden; /* Скрыть переполнение */
 
-    white-space: normal
+    white-space: pre-wrap;
 }
 .content_message{
     max-width: 70%;
@@ -140,6 +140,7 @@
 .form-container textarea{
     resize: none;
     height: 300px;
+    white-space: pre-wrap;
     
 }
 .form-container textarea,input:focus{
@@ -186,4 +187,7 @@ button:hover {
         width: 290px;
     }
     
+}
+.section_previewer{
+    padding: 0 20px;
 }
