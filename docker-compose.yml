@@ -12,4 +12,4 @@ services:
       dockerfile: dockerfile.bot
     container_name: bot_container
     ports:
-      - "25565:25565"
+      - "8000:8000"
