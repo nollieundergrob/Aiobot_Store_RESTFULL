@@ -102,7 +102,7 @@ async def handle_button_click(callback_query: types.CallbackQuery):
         await message.reply("Учтем ваш выбор", reply_to_message_id=id)
     elif callback_data == 'post_contact':
         # await send_advert('чекаю рассылку')
-        await message.reply("Нажмите на кнопку ниже, чтобы связаться с нами",reply_to_message_id=id)
+        await message.reply(f"Свяжиетсь с @swaq11 или @loytue568\n {message.text}",reply_to_message_id=id)
 async def main() -> None:
     dp.include_router(router)
     await dp.start_polling(bot)
