@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   django:
     build:
@@ -8,12 +6,6 @@ services:
     container_name: django_container
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
-      - ./db.sqlite3:/app/db.sqlite3  # Монтируем SQLite файл
-    environment:
-      - DJANGO_SETTINGS_MODULE=conifg.settings
-
   bot:
     build:
       context: .
@@ -21,8 +13,3 @@ services:
     container_name: bot_container
     ports:
       - "25565:25565"
-    volumes:
-      - .:/app
-      - ./db.sqlite3:/app/db.sqlite3  # Монтируем SQLite файл
-    environment:
-      - PYTHONUNBUFFERED=1
