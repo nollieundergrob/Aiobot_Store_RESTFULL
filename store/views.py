@@ -222,6 +222,7 @@ class Create_advert(View):
         images = request.FILES.getlist('list_image')  # Получаем список загруженных изображений
         valid_images = []
         bot = get_bot_object()
+        print(os.getcwd())
         for image in images:
             temp_file_path = f'./static/temp/{image.name}'
             print(temp_file_path)  # Путь к временным файлам
