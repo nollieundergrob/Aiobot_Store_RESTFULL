@@ -5,7 +5,7 @@ services:
       dockerfile: dockerfile.django
     container_name: django_container
     ports:
-      - "8000:8000"
+      - "25565:25565"
   bot:
     build:
       context: .
