@@ -15,7 +15,7 @@ COPY . .
 
 # Установка переменных среды
 ENV PYTHONUNBUFFERED=1 \
-    DJANGO_SETTINGS_MODULE=config.settings
+    DJANGO_SETTINGS_MODULE=conifg.settings
 
 # Запуск Django сервера
 CMD ["python", "start_django.py"]
