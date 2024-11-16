@@ -10,10 +10,9 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+      - ./db.sqlite3:/app/db.sqlite3  # Монтируем SQLite файл
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings
-    depends_on:
-      - db
 
   bot:
     build:
@@ -24,17 +23,6 @@ services:
       - "25565:25565"
     volumes:
       - .:/app
+      - ./db.sqlite3:/app/db.sqlite3  # Монтируем SQLite файл
     environment:
       - PYTHONUNBUFFERED=1
-    depends_on:
-      - db
-
-  db:
-    image: "sqlite:latest"
-    container_name: db_container
-    volumes:
-      - ./db.sqlite3:/app/db.sqlite3
-    environment:
-      - DB_PATH=/app/db.sqlite3
-    expose:
-      - "25565"
