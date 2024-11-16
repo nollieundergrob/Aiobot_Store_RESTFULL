@@ -121,11 +121,8 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Directory where collectstatic will gather files
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # Main static directory
-    BASE_DIR / 'store/static',  # If you want to include store app's static files
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Это может быть папка для собранных статических файлов
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
