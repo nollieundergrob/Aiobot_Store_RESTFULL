@@ -23,7 +23,7 @@ from django.conf import settings
 urlpatterns = [
     path('control_panel/', admin.site.urls),
     path('', include('store.urls'))
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
