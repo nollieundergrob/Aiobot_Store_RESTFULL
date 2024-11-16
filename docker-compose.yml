@@ -20,3 +20,10 @@ services:
     container_name: bot_container
     ports:
       - "8000:8000"
+    volumes:
+    - db_data:/app/db.sqlite3
+    - ./db.sqlite3:/app/db.sqlite3  # Монтируем базу данных SQLite
+    - ./static:/app/static  # Монтируем директорию для статических файлов
+    - ./staticfiles:/app/staticfiles  # Монтируем статические файлы, если необходимо
+    - ./store:/app/store
+    - ./media:/app/media
