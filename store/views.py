@@ -224,7 +224,7 @@ class Create_advert(View):
         bot = get_bot_object()
         print(os.getcwd())
         for image in images:
-            temp_file_path = f'./static/temp/{image.name}'
+            temp_file_path = f'./media/temp/{image.name}'
             print(temp_file_path)  # Путь к временным файлам
             with open(temp_file_path, 'wb') as img:
                     img.write(image.read())
